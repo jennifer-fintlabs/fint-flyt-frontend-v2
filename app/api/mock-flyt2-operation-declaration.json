@@ -1,0 +1,28 @@
+[
+    {
+        "category": "Financial",
+        "operationIdUniqueForCategory": "OP12345",
+        "displayText": {
+            "id": "123",
+            "displayText": "FinacialDisplayText"
+        },
+        "iconId": "icon123",
+        "typeParameters": [
+            {
+                "typeParameterId": "parameterId123",
+                "displayText": {
+                    "id": "123",
+                    "displayText": "parameterDisplayText123"
+                }
+            },
+            {
+                "typeParameterId": "parameterIdxyz",
+                "displayText": {
+                    "id": "xyz",
+                    "displayText": "parameterDisplayTextxyz"
+                }
+            }
+        ],
+        "operationProperties": {}
+    }
+]

@@ -2,7 +2,9 @@ import React from 'react';
 import { Box, Button, Dropdown, HStack } from '@navikt/ds-react';
 import TopMenuList from './TopMenuList';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
-
+import { DataType } from '~/types/types';
+import mockDataTypes from '../../../api/mock-flyt2-datatypes.json';
+import MenuListDataTypes from './MenuListDataTypes';
 interface TopMenuProps {
     onClickHandler: (type: string, data: any) => void;
 }
@@ -10,7 +12,15 @@ interface TopMenuProps {
 const TopMenu: React.FunctionComponent<TopMenuProps> = ({ onClickHandler }) => {
     const ChevronDown = <ChevronDownIcon title="chevron down" fontSize="1.5rem" />;
 
-    const CustomDropDown = ({ title, configKey }: { title: string; configKey: string }) => {
+    const CustomDropDown = ({
+        title,
+        configKey,
+        data,
+    }: {
+        title: string;
+        configKey?: string;
+        data?: DataType[];
+    }) => {
         return (
             <Dropdown>
                 <Button
@@ -22,7 +32,15 @@ const TopMenu: React.FunctionComponent<TopMenuProps> = ({ onClickHandler }) => {
                 </Button>
                 <Dropdown.Menu placement="bottom-start">
                     <Dropdown.Menu.List>
-                        <TopMenuList configKey={configKey} onClickHandler={onClickHandler} />
+                        {data && (
+                            <MenuListDataTypes
+                                dataTypes={mockDataTypes as DataType[]}
+                                onClickHandler={onClickHandler}
+                            />
+                        )}
+                        {configKey && (
+                            <TopMenuList configKey={configKey} onClickHandler={onClickHandler} />
+                        )}
                     </Dropdown.Menu.List>
                 </Dropdown.Menu>
             </Dropdown>
@@ -44,6 +62,7 @@ const TopMenu: React.FunctionComponent<TopMenuProps> = ({ onClickHandler }) => {
                     <CustomDropDown title="Collections" configKey="subFlowNodes" />
                     <CustomDropDown title="Conversions" configKey="mathNodes" />
                     <CustomDropDown title="Text Converstions" configKey="textConversionNodes" />
+                    <CustomDropDown title="DataTypes" data={mockDataTypes as DataType[]} />
                     {/* <Dropdown>
                         <Button icon={ChevronDown} iconPosition="right" variant="tertiary" as={Dropdown.Toggle}>Example</Button>
                         <Dropdown.Menu placement="bottom-start">
