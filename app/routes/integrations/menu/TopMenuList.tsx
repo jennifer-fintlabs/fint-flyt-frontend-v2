@@ -32,6 +32,7 @@ const TopMenuList: React.FC<MathNodeListProps> = ({
         }
     };
 
+    // console.log(menuConfig);
     return (
         <VStack gap="2" align="start">
             {menuConfig.map((menuItem, index) => (

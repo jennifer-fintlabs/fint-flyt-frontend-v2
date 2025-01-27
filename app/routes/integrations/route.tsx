@@ -25,6 +25,8 @@ import OperationsNode from '~/routes/integrations/nodes/OperationsNode';
 import StaticValueNode from '~/routes/integrations/nodes/StaticValueNode';
 import SelectValueNode from '~/routes/integrations/nodes/SelectValueNode';
 import TopMenu from './menu/TopMenu';
+import VariableNode from './nodes/VariableNode';
+import VariableInlineNode from './nodes/VariableInlineNode';
 
 const nodeTypes = {
     subflow: CustomParentNode,
@@ -33,6 +35,8 @@ const nodeTypes = {
     customNode: OperationsNode,
     static: StaticValueNode,
     select: SelectValueNode,
+    variableNode: VariableNode,
+    variableInlineNode: VariableInlineNode,
 };
 
 type StoreState = {
@@ -100,7 +104,9 @@ export default function Index() {
         [reactFlowInstance, addNewNodeDrop]
     );
 
-    const onClickHandler = (type: string, data: never) => {
+    const onClickHandler = (type: string, data: any) => {
+        console.log(type);
+        console.log(data);
         const position = { x: 0, y: 0 }; // Example position
         handleDropLogic(reactFlowInstance, type, data, position, addNewNodeDrop);
     };

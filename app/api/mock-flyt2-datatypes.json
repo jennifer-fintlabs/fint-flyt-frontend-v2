@@ -1,0 +1,54 @@
+[
+    {
+        "category": "TEXT"
+    },
+    {
+        "category": "INTEGER"
+    },
+    {
+        "category": "DECIMAL"
+    },
+    {
+        "category": "BOOLEAN"
+    },
+    {
+        "category": "RECORD",
+        "recordTypeDeclarationId": "test-id"
+    },
+    {
+        "category": "LIST",
+        "elementType": {
+            "category": "RECORD",
+            "recordTypeDeclarationId": "test-id"
+        }
+    },
+    {
+        "category": "MAP",
+        "keyType": {
+            "category": "TEXT"
+        },
+        "valueType": {
+            "category": "LIST",
+            "elementType": {
+                "category": "TEXT"
+            }
+        }
+    },
+    {
+        "category": "SYNCHRNOUS_REQUEST",
+        "requestDataType": {
+            "category": "RECORD",
+            "recordTypeDeclarationId": "test-id"
+        },
+        "responseDataType": {
+            "category": "INTEGER"
+        }
+    },
+    {
+        "category": "STREAM",
+        "elementType": {
+            "category": "RECORD",
+            "recordTypeDeclarationId": "test-id"
+        }
+    }
+]
