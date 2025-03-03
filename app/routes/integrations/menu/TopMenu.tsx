@@ -4,7 +4,7 @@ import TopMenuList from './TopMenuList';
 import { ChevronDownIcon } from '@navikt/aksel-icons';
 import { DataType } from '~/types/types';
 import mockDataTypes from '../../../api/mock-flyt2-datatypes.json';
-import mockOperationDeclarations from '../../../api/mock-operation-declarations.json';
+import mockOperationDeclarations from '../../../api/mock-flyt2-operation-declarations.json';
 import MenuListDataTypes from './MenuListDataTypes';
 import { OperationDeclaration } from '../types/Operation';
 import OperationsList from './OperationsList';

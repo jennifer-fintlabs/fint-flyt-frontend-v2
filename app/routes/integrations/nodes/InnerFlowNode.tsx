@@ -1,25 +1,26 @@
 import { ChevronRightDoubleCircleFillIcon } from '@navikt/aksel-icons';
 import React from 'react';
-import { Connection } from 'reactflow';
-import {
-    InnerFlowOperationDeclaration,
-    OperationDeclaration,
-    VariableDeclaration,
-} from '../types/Operation';
+import { Connection, Position } from 'reactflow';
+import nodeConfig from '~/routes/integrations/nodes/config';
+import CustomHandle from './CustomHandle';
+import { InnerFlowOperationDeclaration, OperationDeclaration } from '../types/Operation';
 import { BaseNode } from './BaseNode';
-import { getDisplayText, getHandles, getIconId } from './utils';
+import { getDisplayText, getIconId, getHandles } from './utils';
 
 interface Props {
     id: string;
     type: string;
     selected: boolean;
-    data: OperationDeclaration;
+    data: InnerFlowOperationDeclaration;
 }
 
-const OperationNode: React.FC<Props> = ({ data, type, selected }) => {
+const InnerFlowNode: React.FC<Props> = ({ data, type, selected }) => {
     const displayText = getDisplayText(type, data);
     const iconId = getIconId(type, data);
-    const { leftHandles, rightHandles } = getHandles(type, data);
+    const { leftHandles, rightHandles, innerFlowLeftHandles, innerFlowRightHandles } = getHandles(
+        type,
+        data
+    );
 
     const isValidConnection = (connection: Connection) => {
         console.log('Connection Attempt:', connection);
@@ -31,6 +32,8 @@ const OperationNode: React.FC<Props> = ({ data, type, selected }) => {
             title={displayText}
             leftHandles={leftHandles}
             rightHandles={rightHandles}
+            innerFlowLeftHandles={innerFlowLeftHandles}
+            innerFlowRightHandles={innerFlowRightHandles}
             selected={selected}
             iconId={iconId}
             type={type}
@@ -38,4 +41,4 @@ const OperationNode: React.FC<Props> = ({ data, type, selected }) => {
     );
 };
 
-export default OperationNode;
+export default InnerFlowNode;

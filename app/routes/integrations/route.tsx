@@ -28,11 +28,13 @@ import TopMenu from './menu/TopMenu';
 import VariableNode from './nodes/VariableNode';
 import VariableInlineNode from './nodes/VariableInlineNode';
 import OperationNode from './nodes/OperationNode';
+import InnerFlowNode from './nodes/InnerFlowNode';
 
 const nodeTypes = {
     subflow: CustomParentNode,
     openObject: CustomObjectNode,
     operation: OperationNode,
+    innerflow: InnerFlowNode,
     channel: ChannelNode,
     customNode: CustomNode,
     static: StaticValueNode,

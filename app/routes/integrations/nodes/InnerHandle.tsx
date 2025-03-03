@@ -2,8 +2,7 @@ import { Connection, Handle, Position } from 'reactflow';
 import VariableInlineNode from './VariableInlineNode';
 import HandleOptions from './HandleOptions';
 import HandleDisplay from './HandleDisplay';
-import { CategoryType, DataType, ListType, ParameterizedType, RecordType } from '~/types/types';
-import { getColorTheme } from './ColorThemes';
+import { DataType, RecordType } from '~/types/types';
 
 interface HandleProps {
     position: Position;
@@ -37,36 +36,17 @@ export default function CustomHandle({
         }
     }
 
-    let typeParameterId = '';
-    if (dataType?.category === CategoryType.LIST) {
-        const listType = dataType as ListType;
-
-        if (listType.elementType.category === CategoryType.PARAMETERIZED) {
-            const parameterizedType = listType.elementType as ParameterizedType;
-            console.log(parameterizedType.typeParameterId);
-            typeParameterId = parameterizedType.typeParameterId;
-        }
-    }
-
-    const colorTheme = getColorTheme();
-    const handleBgColor =
-        position == Position.Left
-            ? `${colorTheme.InputHandleBgColor}`
-            : `${colorTheme.OutputHandleBgColor}`;
-
-    const handleDesign = `absolute z-10 !w-4 !h-4 !left-[-8px] !border !border-black`;
-
-    const design = `${handleDesign} !${handleBgColor}`;
-    console.log('2: ', handleBgColor);
-    // const design = 'absolute z-10 !w-4 !h-4 !left-[-8px] !border !border-black !bg-blue-300';
-    // console.log(design);
     return (
         <div className={`flex gap-2 pb-1 items-center relative ${labelPlacement()} ${className}`}>
-            <div className={`relative bg-red-200`}>
+            <div className={`relative bg-black`}>
                 <Handle
                     type={position == Position.Right ? 'source' : 'target'}
                     position={position}
-                    className={design}
+                    className={
+                        position == Position.Left
+                            ? 'absolute z-10 !w-4 !h-4 !left-[-8px] !bg-orange-300 !border !border-black'
+                            : 'absolute z-10 !w-4 !h-4 !left-[-8px] !bg-amber-700 !border !border-black'
+                    }
                     id={id}
                     key={id}
                     isValidConnection={isValidConnection}
@@ -83,7 +63,6 @@ export default function CustomHandle({
                         : 'STRING'
                 }
                 displayName={displayText}
-                typeParameterId={typeParameterId}
             />
         </div>
     );

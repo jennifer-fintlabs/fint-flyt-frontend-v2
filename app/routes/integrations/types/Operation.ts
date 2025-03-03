@@ -31,3 +31,35 @@ export interface OperationDeclaration {
 }
 
 export type DisplayText = string;
+
+export interface OperationVariableDeclarations {
+    inputVariables: VariableDeclaration[];
+    outputVariables: VariableDeclaration[];
+}
+// Flow Declaration
+export interface FlowDeclaration {
+    order: number;
+    displayText: string;
+    multiple: boolean;
+    externalVariables: OperationVariableDeclarations;
+    internalVariables: OperationVariableDeclarations;
+}
+
+// Inner Flow Operation
+export interface InnerFlowOperationDeclaration {
+    outerOperation: OperationDeclaration;
+    innerFlowVariables: OperationVariableDeclarations;
+    locked: boolean;
+}
+
+// Multi Flow Operation
+export interface MultiFlowOperationDeclaration {
+    outerOperation: OperationDeclaration;
+    flows: FlowDeclaration[];
+}
+
+// Root structure for the JSON
+export interface FlowOperations {
+    innerFlowOperations: InnerFlowOperationDeclaration[];
+    multiFlowOperations: MultiFlowOperationDeclaration[];
+}

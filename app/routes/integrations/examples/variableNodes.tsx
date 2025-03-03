@@ -8,7 +8,10 @@ export default [
         data: {
             data: {
                 category: 'STREAM',
-                elementType: { category: 'LIST', elementType: { category: 'STRING' } },
+                elementType: {
+                    category: 'LIST',
+                    elementType: { category: 'LIST', elementType: { category: 'STRING' } },
+                },
             },
             displayName: 'Arkivansvarlig',
         },

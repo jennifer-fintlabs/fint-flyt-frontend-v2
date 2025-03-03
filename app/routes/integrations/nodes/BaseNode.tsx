@@ -2,13 +2,18 @@ import { Connection, Handle, Position } from 'reactflow';
 import { VariableDeclaration } from '../types/Operation';
 import CustomHandle from './CustomHandle';
 import { ChevronRightDoubleCircleFillIcon } from '@navikt/aksel-icons';
+import { getColorTheme } from './ColorThemes';
+import InnerHandle from './InnerHandle';
 
 interface BaseNodeProps {
     title: string;
-    leftHandles: VariableDeclaration[];
-    rightHandles: VariableDeclaration[];
+    leftHandles?: VariableDeclaration[];
+    rightHandles?: VariableDeclaration[];
+    innerFlowLeftHandles?: VariableDeclaration[];
+    innerFlowRightHandles?: VariableDeclaration[];
     selected: boolean;
     iconId: string;
+    type: string;
     isValidConnection: (connection: Connection) => boolean;
 }
 
@@ -16,25 +21,31 @@ export const BaseNode: React.FC<BaseNodeProps> = ({
     title,
     leftHandles,
     rightHandles,
+    innerFlowLeftHandles,
+    innerFlowRightHandles,
     selected,
     iconId,
+    type,
     isValidConnection,
 }) => {
     const maxHandles =
-        leftHandles.length > rightHandles.length ? leftHandles.length : rightHandles.length;
+        !leftHandles || !rightHandles ? 0 : Math.max(leftHandles.length, rightHandles.length);
 
     const dynamicHeight = `${maxHandles > 2 ? maxHandles * 2 : 5}rem`;
 
-    const designProfile = designProfiles[1];
-    const backgroundDesign = selected
-        ? designProfile.BackgroundColorselected
-        : designProfile.BackgroundColorDefault;
+    const isInnerFlow = type === 'innerflow';
+
+    const operationDesign = `${getOperationBgColors(selected)} w-20`;
+
+    const innerFlowDesign = `w-96 min-h-40 ${getInnerFlowBgColors(selected)}`;
+
+    const sidebarColors = getSideBarColor(selected);
     return (
         <div className="">
             <div className={`flex justify-center ${selected ? '' : ''}`}>
                 {/* Left handles */}
                 <div className="flex justify-center flex-col">
-                    {leftHandles.map((handle, index) => (
+                    {leftHandles?.map((handle, index) => (
                         <CustomHandle
                             key={index}
                             position={Position.Left}
@@ -48,22 +59,72 @@ export const BaseNode: React.FC<BaseNodeProps> = ({
                 </div>
 
                 <div className="relative flex flex-col items-center">
-                    {/* Display text centered above the rounded box */}
-                    <p className="absolute top-[-2.5rem] left-1/2 -translate-x-1/2 text-center text-xl px-2 whitespace-nowrap">
-                        {title}
-                    </p>
+                    {/* Title centered above the rounded box */}
+                    <div className="absolute top-[-2.5rem] left-1/2 -translate-x-1/2 text-center text-xl px-2 whitespace-nowrap">
+                        <span className="relative flex flex-row">
+                            {/* {renderIcon(
+                                iconId,
+                                colorPalette.iconColor,
+                                colorPalette.iconStrokeColor,
+                                false
+                            )} */}
+                            <p className={``}>{title}</p>
+                        </span>
+                    </div>
 
-                    {/* Rounded box */}
+                    {/* Operation box */}
                     <div
                         style={{ height: dynamicHeight }}
-                        className={`relative ${backgroundDesign} w-20 rounded-2xl flex flex-col items-center justify-center border border-black p-2`}>
-                        {renderIcon(iconId)}
+                        className={`relative ${isInnerFlow ? innerFlowDesign : operationDesign} rounded-2xl flex flex-col items-center justify-center border border-black p-2`}>
+                        {renderIcon(iconId, isInnerFlow)}
+
+                        {/* Innerflow custom styles */}
+                        {isInnerFlow && (
+                            // side bars
+                            <>
+                                {/* Left Side Bar */}
+                                <div
+                                    style={{ height: '100%' }}
+                                    className={`${sidebarColors} w-10 absolute left-0 top-0 border-r border-black rounded-l-2xl flex items-center`}></div>
+
+                                <div className="absolute left-10">
+                                    {innerFlowLeftHandles?.map((handle, index) => (
+                                        <InnerHandle
+                                            key={index}
+                                            position={Position.Right}
+                                            id={handle.key}
+                                            displayText={handle.displayText}
+                                            isArray={false}
+                                            dataType={handle.dataType}
+                                            isValidConnection={isValidConnection}
+                                        />
+                                    ))}
+                                </div>
+                                {/* Right side bar */}
+                                <div className="absolute right-10">
+                                    {innerFlowRightHandles?.map((handle, index) => (
+                                        <InnerHandle
+                                            key={index}
+                                            position={Position.Left}
+                                            id={handle.key}
+                                            displayText={handle.displayText}
+                                            isArray={false}
+                                            dataType={handle.dataType}
+                                            isValidConnection={isValidConnection}
+                                        />
+                                    ))}
+                                </div>
+                                <div
+                                    style={{ height: '100%' }}
+                                    className={`${sidebarColors} w-10 absolute right-0 top-0 border-l border-black rounded-r-2xl`}></div>
+                            </>
+                        )}
                     </div>
                 </div>
 
                 {/* Right handles */}
                 <div className="flex justify-center flex-col">
-                    {rightHandles.map((handle, index) => (
+                    {rightHandles?.map((handle, index) => (
                         <CustomHandle
                             key={index}
                             position={Position.Right}
@@ -80,51 +141,46 @@ export const BaseNode: React.FC<BaseNodeProps> = ({
     );
 };
 
-const renderIcon = (iconId: string) => {
+const renderIcon = (iconId: string, placeOnTop = false, isHidden = false) => {
+    const outlineWidth = '0.5px';
+
+    const colorPalette = getColorTheme();
+    const iconColor = colorPalette.iconColor;
+    const iconStrokeColor = colorPalette.iconStrokeColor;
+
+    const placeOnTopDesign = placeOnTop ? 'absolute top-4' : '';
     if (iconId === 'ChevronRightDoubleCircleFillIcon') {
         return <ChevronRightDoubleCircleFillIcon title="a11y-title" fontSize="40px" />;
     } else {
-        return <span className="material-symbols-outlined text-left text-[40px]">{iconId}</span>;
+        return (
+            <span
+                className={`${placeOnTopDesign} material-symbols-outlined text-left text-[30px] ${iconColor} ${isHidden ? 'hidden' : ''}`}
+                style={{
+                    textShadow: `
+                    -${outlineWidth} -${outlineWidth} 0 ${iconStrokeColor},
+                    ${outlineWidth} -${outlineWidth} 0 ${iconStrokeColor},
+                    -${outlineWidth} ${outlineWidth} 0 ${iconStrokeColor},
+                    ${outlineWidth} ${outlineWidth} 0 ${iconStrokeColor}
+                `,
+                }}>
+                {iconId}
+            </span>
+        );
     }
 };
-
-interface DesignProfile {
-    BackgroundColorDefault: string;
-    BackgroundColorselected: string;
+function getSideBarColor(selected: boolean) {
+    const colorPalette = getColorTheme();
+    return selected
+        ? colorPalette.InnerFlowBgColorSideBarsSelected
+        : colorPalette.InnerFlowBgColorSideBarsDefault;
 }
 
-export const designProfiles: Record<string, DesignProfile> = {
-    1: {
-        // Novari Orange Theme
-        BackgroundColorDefault: 'bg-[#FFE6C1]',
-        BackgroundColorselected: 'bg-orange-300 ring-2 ring-gray-700/40 shadow-sm shadow-gray-500',
-    },
-    2: {
-        BackgroundColorDefault: 'bg-gray-200',
-        BackgroundColorselected: 'bg-blue-200 ring-2 ring-blue-700/40 shadow-sm shadow-blue-500',
-    },
-    3: {
-        // Light Orange
-        BackgroundColorDefault: 'bg-[#fef2e0]',
-        BackgroundColorselected:
-            'bg-[#ffb432] ring-2 ring-emerald-700/40 shadow-sm shadow-emerald-500',
-    },
-    4: {
-        // Tailwind Orange Theme
-        BackgroundColorDefault: 'bg-[#f8ecda]',
-        BackgroundColorselected: 'bg-orange-300 ring-2 ring-gray-700/40 shadow-sm shadow-gray-500',
-    },
-    5: {
-        // Rose Theme
-        BackgroundColorDefault: 'bg-teal-300',
-        BackgroundColorselected: 'bg-rose-300 ring-2 ring-rose-700/40 shadow-sm shadow-rose-500',
-    },
-    6: {
-        BackgroundColorDefault: 'bg-red-300',
-        BackgroundColorselected: 'bg-red-400 ring-2 ring-red-700/40 shadow-sm shadow-red-500',
-    },
-    7: {
-        BackgroundColorDefault: 'bg-blue-300',
-        BackgroundColorselected: 'bg-blue-400 ring-2 ring-blue-700/40 shadow-sm shadow-blue-500',
-    },
-};
+function getInnerFlowBgColors(selected: boolean) {
+    const colorPalette = getColorTheme();
+    return selected ? colorPalette.InnerFlowBgColorSelected : colorPalette.InnerFlowBgColorDefault;
+}
+
+function getOperationBgColors(selected: boolean) {
+    const colorPalette = getColorTheme();
+    return selected ? colorPalette.OperationBgColorselected : colorPalette.OperationBgColorDefault;
+}

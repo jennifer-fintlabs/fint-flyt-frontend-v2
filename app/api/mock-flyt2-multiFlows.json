@@ -1,0 +1,223 @@
+{
+    "multiFlowOperations": [
+        {
+            "outerOperation": {
+                "operationIdUniqueForCategory": "multi_flow_001",
+                "displayText": "Handling dersom predikat er sant",
+                "iconId": "multi_flow_icon",
+                "typeParameters": [],
+                "operationVariables": {
+                    "inputVariables": [
+                        {
+                            "order": 1,
+                            "key": "",
+                            "displayText": "",
+                            "dataType": { "category": "STRING" }
+                        }
+                    ],
+                    "outputVariables": [
+                        {
+                            "order": 1,
+                            "key": "",
+                            "displayText": "",
+                            "dataType": { "category": "STRING" }
+                        }
+                    ]
+                }
+            },
+            "flows": [
+                {
+                    "order": 1,
+                    "displayText": "",
+                    "multiple": true,
+                    "externalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_input_1",
+                                "displayText": "Verdi",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ],
+                        "outputVariables": null
+                    },
+                    "internalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_input_1",
+                                "displayText": "Verdi",
+                                "dataType": { "category": "INTEGER" }
+                            },
+                            {
+                                "order": 2,
+                                "key": "int_input_1",
+                                "displayText": "Predikatverdi",
+                                "dataType": { "category": "INTEGER" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_output_1",
+                                "displayText": "Er sant",
+                                "dataType": { "category": "INTEGER" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "order": 2,
+                    "displayText": "Flow 2",
+                    "multiple": false,
+                    "externalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_input_2",
+                                "displayText": "External Input 2",
+                                "dataType": { "category": "BOOLEAN" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_output_2",
+                                "displayText": "External Output 2",
+                                "dataType": { "category": "BOOLEAN" }
+                            }
+                        ]
+                    },
+                    "internalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_input_2",
+                                "displayText": "Internal Input 2",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_output_2",
+                                "displayText": "Internal Output 2",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "outerOperation": {
+                "operationIdUniqueForCategory": "multi_flow_002",
+                "displayText": "Multi Flow Operation 2",
+                "iconId": "multi_flow_icon_2",
+                "typeParameters": [],
+                "operationVariables": {
+                    "inputVariables": [
+                        {
+                            "order": 1,
+                            "key": "multi_input_2",
+                            "displayText": "Multi Input 2",
+                            "dataType": { "category": "INTEGER" }
+                        }
+                    ],
+                    "outputVariables": [
+                        {
+                            "order": 1,
+                            "key": "multi_output_2",
+                            "displayText": "Multi Output 2",
+                            "dataType": { "category": "INTEGER" }
+                        }
+                    ]
+                }
+            },
+            "flows": [
+                {
+                    "order": 1,
+                    "displayText": "Flow 3",
+                    "multiple": true,
+                    "externalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_input_3",
+                                "displayText": "External Input 3",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_output_3",
+                                "displayText": "External Output 3",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ]
+                    },
+                    "internalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_input_3",
+                                "displayText": "Internal Input 3",
+                                "dataType": { "category": "BOOLEAN" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_output_3",
+                                "displayText": "Internal Output 3",
+                                "dataType": { "category": "BOOLEAN" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "order": 2,
+                    "displayText": "Flow 4",
+                    "multiple": false,
+                    "externalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_input_4",
+                                "displayText": "External Input 4",
+                                "dataType": { "category": "INTEGER" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "ext_output_4",
+                                "displayText": "External Output 4",
+                                "dataType": { "category": "INTEGER" }
+                            }
+                        ]
+                    },
+                    "internalVariables": {
+                        "inputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_input_4",
+                                "displayText": "Internal Input 4",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ],
+                        "outputVariables": [
+                            {
+                                "order": 1,
+                                "key": "int_output_4",
+                                "displayText": "Internal Output 4",
+                                "dataType": { "category": "STRING" }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -4,3 +4,6 @@ node_modules
 /build
 .env
 /.idea/prettier.xml
+
+# React Component Preview
+previewConfig.json

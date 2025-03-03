@@ -45,7 +45,7 @@ export default [
         },
         data: {
             operationIdUniqueForCategory: 'xxxx',
-            displayText: 'Dato + klokkeslett ➡️ Tidspunkt',
+            displayText: 'Dato + klokkeslett Tidspunkt',
             iconId: 'ChevronRightDoubleCircleFillIcon',
             operationVariables: {
                 inputVariables: [
